@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 基本数据类型
+        /*
+         * undefined
+         * null
+         * boolean
+         * string
+         * number
+         */
+        // 复杂数据类型 object
+        // 检测数据类型 
+        var a = 'a';
+        console.log('a:', typeof a);  // string
+        console.log('(a):', typeof (a)); // string
+        console.log('95:', typeof 95);  // string
+        // undefined
+        // undefined类型只有一个值undefined 在使用var声明变量但未对其初始化 此变量值为undefined 
+        // 使用undefined初始化一个变量 其值也为undefined
+        var message;
+        console.log(message === undefined); // true
+        var message1 = undefined;
+        console.log('message1:', message1);
+        console.log('typeof message1:', typeof message1);
+
+        // typeof 对未初始化的变量返回undefined 对未声明的变量也会返回undefined
+
+        var message2;
+        // var age;
+        console.log(typeof message2);
+        console.log(typeof age)
+
+        // null 空对象指针 typeof检测null返回object
+        var car = null;
+        console.log(typeof car)
+        // 如果定义的变量准备在以后用来保存对象 最好将该变量初始化为null
+        if (car != null){
+            // 对car对象执行操作
+        }
+        // undefined值是派生自null的
+        console.log(null == undefined)
+        // 保存对象的变量还没有真正保存对象 就应该明确地让该变量保存null值
+console.log('Number-----------------------------------------------------------------------------')
+        // boolean
+        var found = true;
+        var lost = false;
+
+        var message3 = 'world';
+        var messageAsBoolean = Boolean(message3);
+
+        // boolean 对各种数据类型的对应转换
+        // false: boolean的false string的''(空字符串) Number的0或NaN Object的null undefined
+        // true: boolean的true string的非空字符串 Number的非零值 Object的任何对象  undefined不适用
+
+console.log('-------------------------------------------------------------');
+        // Number
+        // 八进制字面量在严格模式下是无效的 会导致支持该模式的JavaScript引擎抛出错误
+        // 0.1+0.2!=0.3 因为浮点数值的最高精度是17位 但在算术计算时精度远远不如整数
+        // 负无穷 -Infinity 正无穷 Infinity
+        // 如果某次计算返回了正或负无穷 那么该值将无法继续参与下一次计算 无穷不是能够参与计算的值 isFinite()函数用来检测这个值是不是有穷的
+        // NaN 非数值 用于表示一个本来要返回数值的操作数未返回数值的情况
+        // 1.涉及NaN的操作都会返回NaN  2.NaN与任何值都不相等,包括NaN本身
+        // 判断是否不是数值 用isNaN() 参数可以是任何类型 会尝试将这个值转换为数值
+        console.log('NaN:', isNaN(NaN)); // true
+        console.log('10:', isNaN(10)); // false
+        console.log('"10":', isNaN('10')); // false
+        console.log(isNaN('blue')); // true
+        console.log(isNaN(true)); // false
+        // 数值转换 Number() parseInt() parseFloat()
+        // Number() 转型函数可用于任何数据类型 如果参数是对象 则调用valueOf()方法 转换其返回值 如果转换的结果是NaN 调用对象的toString()方法 再转换其返回值
+        console.log(Number(true)) // 1
+        console.log(Number(1))    // 1
+        console.log(Number(null)) // 0
+        console.log(Number(undefined)) //NaN
+        console.log(Number(0123)) // 123 (忽视前导零)  
+        console.log(Number(1.1)) // 1.1
+        console.log(Number(0xf))  // 15(转为10进制)
+        console.log(Number(''))   // 0
+        console.log(Number('hello')) // NaN
+
+        // parseInt(字符串, 进制) 判断转换的字符串是否复合数值模式 会忽略字符串前面的空格 直到找到第一个非空格字符 如果第一个字符不睡数字字符或者负号 parseInt() 就会返回NaN parseInt()转换空字符串会返回NaN 如果第一个字符是数字字符 paresInt()会继续解析第二个字符 直到解析完左右后续字符或遇到一个非数字字符 小数点不是有效字符 如果字符串中的第一个字符是数字字符 paresInt()也能够识别出各种整数格式 如果字符串以0X开头且后跟随数字字符 就会将其当作一个十六进制整数 如果以0开头且后跟数字字符 则会将其当作一个八进制数来解析
+        console.log(parseInt('1234a'));  // 1234
+        console.log(parseInt(''));       // NaN
+        console.log(parseInt('0xA'));    // 10(十六进制)
+        console.log(parseInt(22.5));     // 22
+        // console.log(parseInt('070'));    // 56(八进制)
+        console.log(parseInt('70'));     // 70(十进制)
+        console.log(parseInt('0xf'));    // 15 (十六进制)
+        // parseInt()解析像八进制字面量的字符串时 ES3和ES5存在分歧 ES3认为是八进制56 ES5认为是十进制70 可以使用第二参数: 转换时使用的基数(多少进制)  无论在什么情况下使用 都要定义基数
+        console.log(parseInt('0xAF', 16)); // 175
+        console.log(parseInt('AF', 16));   // 175
+
+        // parseFloat() 从第一个字符开始解析每个字符 一直解析到字符串末尾 或者遇到一个无效的复电数字字符位置 字符串中的第一个小数点是有效的 第二个无效 后面的字符串将被忽略 会忽略前导零 可以识别所有浮点数值格式 只能解析十进制 没有第二参数
+        console.log(parseFloat('1234aaa')); // 1234
+        console.log(parseFloat('0xA'));     // 0(十六进制格式将转换为0)
+        console.log(parseFloat('22.5'));    // 22.5
+        console.log(parseFloat('22.34.5')); // 22.34
+        console.log(parseFloat('0908.5'));  // 908.5
+        console.log(parseFloat('3.125e7')); // 31250000
+
+console.log('String---------------------------------------------------------------------');
+        
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
